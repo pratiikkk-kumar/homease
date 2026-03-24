@@ -1,0 +1,180 @@
+<% layout('layouts/boilerplate') -%>
+<div id="filters-container">
+  <div class="filters-wrapper">
+    <div class="scroll-btn scroll-left" id="scroll-left">
+      <i class="fa-solid fa-chevron-left"></i>
+    </div>
+    <div class="filters-desktop" id="filters-desktop">
+      <div class="filter-item">
+        <i class="fa-solid fa-list"></i>
+        <p>All</p>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-house"></i>
+        <p>Full House</p>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-building"></i>
+        <p>Flat</p>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-bed"></i>
+        <p>PG/Hostel</p>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-1"></i>
+        <p>1BHK</p>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-2"></i>
+        <p>2BHK</p>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-3"></i>
+        <p>3BHK</p>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-4"></i>
+        <p>4BHK+</p>
+      </div>
+      <div class="filter-item">
+        <i class="fa-solid fa-shop"></i>
+        <p>Commercial</p>
+      </div>
+    </div>
+    <div class="scroll-btn scroll-right" id="scroll-right">
+      <i class="fa-solid fa-chevron-right"></i>
+    </div>
+  </div>
+
+  <div class="filters-mobile dropdown">
+    <button
+      class="btn mobile-filter-btn dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <span><i class="fa-solid fa-sliders me-2"></i> Filters</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-custom">
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-list"></i> All</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-house"></i> Full House</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-building"></i> Flat</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-bed"></i> PG/Hostel</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-1"></i> 1BHK</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-2"></i> 2BHK</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-3"></i> 3BHK</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-4"></i> 4BHK+</a
+        >
+      </li>
+      <li>
+        <a class="dropdown-item mobile-filter-item" href="#"
+          ><i class="fa-solid fa-shop"></i> Commercial</a
+        >
+      </li>
+    </ul>
+  </div>
+
+  <div class="tax-toggle-container">
+    <div class="tax-toggle">
+      <div class="form-check-reverse form-switch">
+        <label class="form-check-label" for="switchCheckDefault"
+          >Display total after taxes</label
+        >
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="switchCheckDefault"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if(typeof searchQuery !== 'undefined' && searchQuery) { %>
+<div class="container mt-3">
+  <div class="alert search-results-alert" role="alert">
+    <% if(allListings.length > 0) { %> Showing <%= allListings.length %>
+    result<%= allListings.length !== 1 ? 's' : '' %> for "<%= searchQuery %>"
+    <a href="/listings" class="btn btn-sm btn-outline-custom ms-2"
+      >Clear Search</a
+    >
+    <% } else { %> No listings found for "<%= searchQuery %>". Try searching for
+    different location or country.
+    <a href="/listings" class="btn btn-sm btn-outline-custom ms-2"
+      >View All Listings</a
+    >
+    <% } %>
+  </div>
+</div>
+<% } %>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+  <% for(let listing of allListings) { %>
+  <a href="/listings/<%= listing._id %>" class="listing-link animate-on-scroll">
+    <div class="card listing-card">
+      <div class="listing-img-container">
+        <img
+          src="<%= listing.image.url %>"
+          class="card-img-top"
+          alt="listing_image"
+        />
+        <div class="listing-overlay"></div>
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          <b class="card-title"><%= listing.title %></b> <br />
+          <span class="text-muted"
+            ><%= listing.location %>, <%= listing.country %></span
+          >
+          <br />
+          <span class="listing-price" data-original-price="<%= listing.price %>">
+            &#8377;<%= listing.price.toLocaleString("en-IN") %>
+            <span style="font-weight: 400"> month</span>
+          </span>
+          <div class="tax-info" style="color: #717171; font-size: 0.9rem; display: none;">
+            <span class="gst-breakdown">
+              &nbsp; + &#8377;<%= Math.round(listing.price * 0.18).toLocaleString("en-IN") %> (18% GST)
+            </span>
+            <br>
+            <span class="total-price" style="font-weight: 600; color: #333;">
+              Total: &#8377;<%= Math.round(listing.price * 1.18).toLocaleString("en-IN") %> night
+            </span>
+          </div>
+        </p>
+      </div>
+    </div>
+  </a>
+  <% } %>
+</div>

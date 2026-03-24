@@ -1,0 +1,113 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="row">
+  <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+    <div class="form-container">
+      <h1 class="form-title">Add New Listing</h1>
+      <form
+        action="/listings"
+        method="POST"
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-4">
+          <label for="title" class="form-label">Listing Title</label>
+          <input
+            type="text"
+            name="listing[title]"
+            placeholder="e.g. Luxury Villa with Pool"
+            required
+            class="form-control"
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            name="listing[description]"
+            placeholder="Tell us about your place..."
+            class="form-control"
+            required
+          ></textarea>
+          <div class="invalid-feedback">Please enter a description</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="image" class="form-label">Upload Image</label>
+          <input type="file" class="form-control" name="image[file]" required />
+          <div class="invalid-feedback">Please upload an image</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="price" class="form-label">Price per Night</label>
+          <div class="input-group">
+            <span
+              class="input-group-text"
+              style="
+                border-radius: 0.8rem 0 0 0.8rem;
+                background: #f9f9f9;
+                border-color: #e0e0e0;
+              "
+              >&#8377;</span
+            >
+            <input
+              name="listing[price]"
+              class="form-control"
+              placeholder="2500"
+              required
+              type="number"
+              style="border-radius: 0 0.8rem 0.8rem 0"
+            />
+          </div>
+          <div class="invalid-feedback">Please provide a valid price.</div>
+        </div>
+
+        <div class="row">
+          <div class="mb-4 col-md-6">
+            <label for="location" class="form-label">Location</label>
+            <input
+              type="text"
+              name="listing[location]"
+              class="form-control"
+              placeholder="e.g. Jaipur, Rajasthan"
+              required
+            />
+            <div class="invalid-feedback">Please provide a valid location.</div>
+          </div>
+
+          <div class="mb-4 col-md-6">
+            <label for="country" class="form-label">Country</label>
+            <input
+              type="text"
+              name="listing[country]"
+              class="form-control"
+              placeholder="e.g. India"
+              required
+            />
+            <div class="invalid-feedback">Please provide a valid country.</div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="category" class="form-label">Category</label>
+          <select name="listing[category]" class="form-control" required>
+            <option value="">Choose a category</option>
+            <option value="Full House">Full House</option>
+            <option value="Flat">Flat</option>
+            <option value="PG/Hostel">PG/Hostel</option>
+            <option value="1BHK">1BHK</option>
+            <option value="2BHK">2BHK</option>
+            <option value="3BHK">3BHK</option>
+            <option value="4BHK+">4BHK+</option>
+            <option value="Commercial">Commercial</option>
+          </select>
+          <div class="invalid-feedback">Please select a category.</div>
+        </div>
+
+        <button class="btn btn-brand">Create Listing</button>
+      </form>
+    </div>
+  </div>
+</div>

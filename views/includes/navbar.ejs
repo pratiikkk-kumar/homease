@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-md sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings">
+      <img src="/images/HomEaseLogo.png" height="40px" alt="Homease Logo" />
+      <span class="brand-name">HomEase</span>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="search-container">
+        <form
+          class="search-wrapper"
+          role="search"
+          action="/listings/search"
+          method="GET"
+        >
+          <input
+            class="form-control search-input"
+            type="search"
+            name="q"
+            placeholder="Search destinations"
+          />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="navbar-nav ms-auto nav-actions">
+        <% if(!currUser) { %>
+        <a class="nav-link-custom" href="#" data-modal="signup">Sign Up</a>
+        <a class="nav-link-custom btn-primary-custom" href="#" data-modal="login">Log In</a>
+        <% } else { %>
+        <a class="nav-link-custom" href="/listings/new">Add Your Home</a>
+        <a class="nav-link-custom btn-primary-custom" href="/logout">Log Out</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
